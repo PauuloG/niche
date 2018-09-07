@@ -65,11 +65,12 @@ This will install all dependencies and run your app. The app runs on port 80 by 
 
 ## Usage
 
-In order for the app to function normally, you can setup this crontab task : 
+In order for the app to function normally, you can setup those crontab tasks : 
 
 ```
 # This will update the list of users from Slack everyday to keep it in sync. You can also run this task less often or even manually.
-0 0 * * * /usr/bin/docker exec -it niche-php php bin/console users:update
+0 * * * * /usr/bin/docker exec -it niche-php php bin/console users:update
+* * * * * /usr/bin/docker exec -it niche-php php bin/console groups:update
 ```
 
 You should be good to go, go spread the love 💌!
