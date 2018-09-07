@@ -9,9 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Context\Context;
 use FOS\RestBundle\Controller\FOSRestController;
 use GuzzleHttp\Exception\ClientException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -99,12 +96,9 @@ class UserGroupController extends FOSRestController
                 $slackManager->postSlackUserGroup($userGroup)->getBody()->getContents(),
                 true
             );
-            echo json_encode($slackResponse);
-
             $userGroup->setSlackId($slackResponse['usergroup']['id']);
         } catch (ClientException $e) {
-            throw $e;
-//            throw new HttpException('Whoops, couln\'t post alias to Slack.');
+            throw new HttpException('Whoops, couln\'t post alias to Slack.');
         }
 
         $em->persist($userGroup);
@@ -140,10 +134,8 @@ class UserGroupController extends FOSRestController
                 $slackManager->postSlackUserGroup($userGroup)->getBody()->getContents(),
                 true
             );
-            echo json_encode($slackResponse);
         } catch (ClientException $e) {
-            throw $e;
-//            throw new HttpException('Whoops, couln\'t delete alias from Slack.');
+            throw new HttpException('Whoops, couln\'t delete alias from Slack.');
         }
 
         $em->remove($userGroup);
