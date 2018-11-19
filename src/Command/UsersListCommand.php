@@ -36,6 +36,7 @@ class UsersListCommand extends Command
     {
         $this
             ->setDescription('Lists users')
+            ->addOption('--email')
         ;
     }
 
@@ -60,6 +61,14 @@ class UsersListCommand extends Command
                 $user->getSlackName(),
                 $user->getSlackRealName()
             ];
+
+            if ($input->getOption('email')) {
+                echo $user->getEmail().PHP_EOL;
+            }
+        }
+
+        if ($input->getOption('email')) {
+            return;
         }
 
         $io->text(sprintf(

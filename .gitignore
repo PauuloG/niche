@@ -174,3 +174,4 @@ Temporary Items
 ###< symfony/framework-bundle ###
 
 src/Command/TestAnythingCommand.php
+src/Resources/js/node_modules
